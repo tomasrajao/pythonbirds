@@ -13,6 +13,15 @@ class Pessoa:
     def cumprimentar(self):
         return f'Olá {id(self)}'
 
+    # métodos de classe
+    @staticmethod  # método atrelado diretamente à classe
+    def metodo_estatico():
+        return 53
+
+    @classmethod  # método de classe com acesso à classe que executa esse método
+    def metodo_de_classe(cls):
+        return f'{cls} {cls.olhos}'
+
 
 if __name__ == '__main__':
     renzo = Pessoa(idade=35)
@@ -47,3 +56,7 @@ if __name__ == '__main__':
     print(Pessoa.olhos)
     print(luciano.olhos)
     print(renzo.olhos)
+
+    print(Pessoa.metodo_estatico(), luciano.metodo_estatico())
+    print(Pessoa.metodo_de_classe(), luciano.metodo_de_classe())
+
