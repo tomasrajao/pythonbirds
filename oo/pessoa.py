@@ -1,10 +1,10 @@
 # Classe
 class Pessoa:
-    # atributo de dado
+    # atributo de dado/atributo de instância
     def __init__(self, *filhos, nome=None, idade=28):  # def __init__(self, parâmetro)
         self.nome = nome  # "atributo.de_dado = parâmetro
         self.idade = idade
-        self.filhos = list(filhos)
+        self.filhos = list(filhos)  # atributo complexo
 
     # Método (atributo da classe)
     def cumprimentar(self):
@@ -27,3 +27,8 @@ if __name__ == '__main__':
     print(luciano.idade)
     for filho in luciano.filhos:
         print(filho.idade)
+    luciano.sobrenome = 'Ramalho'
+    del luciano.filhos
+    print(luciano.__dict__)
+    print(renzo.__dict__)
+
