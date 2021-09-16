@@ -11,7 +11,7 @@ class Pessoa:
 
     # Método (atributo da classe)
     def cumprimentar(self):
-        return f'Olá {id(self)}'
+        return f'Olá, meu nome é {self.nome}'
 
     # métodos de classe
     @staticmethod  # método atrelado diretamente à classe
@@ -23,9 +23,26 @@ class Pessoa:
         return f'{cls} {cls.olhos}'
 
 
+class Homem(Pessoa):  # Herança: 'Homem' (classe Filha) herda de 'Pessoa' (classe Pai)
+    def cumprimentar(self):  # sobrescrita de método. Executa apenas o método indicado na classe filho, mesmo que
+        #                      exista na classe Pai
+        cumprimentar_da_classe = Pessoa.cumprimentar(self)  # Classe.metodo(self): Maneira explícita de chamar o método
+        #                                                     da classe Pai, porém não a ideal.
+        cumprimentar_da_classe = super().cumprimentar()  # super().método(): Além de ser mais claro, o método especial
+        #                                                  super() é a forma correta de chamar um método da classe Pai,
+        #                                                  considerando que a classe Pai não precisa ser declarada
+        #                                                  explicitamente
+        return f'{cumprimentar_da_classe}. Aperto de mão'
+
+
+class Mutante(Pessoa):
+    olhos = 3  # Sobrescrita de atributo: possui o mesmo nome que o atributo da classe Pai, sobrescrevendo o seu
+    #            respectivo valor
+
+
 if __name__ == '__main__':
-    renzo = Pessoa(idade=35)
-    tomas = Pessoa(idade=28)
+    renzo = Homem(idade=35)
+    tomas = Mutante(nome='Tomas', idade=28)
     cleber = Pessoa(idade=40)
     luciano = Pessoa(renzo, tomas, cleber, nome='Luciano')
     # Chamando classe e método, precisa passar o objeto "p" (atributo da classe)
@@ -35,6 +52,7 @@ if __name__ == '__main__':
     print(luciano.cumprimentar())
     print(luciano.nome)
     luciano.nome = 'Tomas'
+    luciano.nome = 'Luciano'
     print(luciano.nome)
     print(luciano.idade)
     for filho in luciano.filhos:
@@ -48,7 +66,7 @@ if __name__ == '__main__':
     del luciano.olhos  # ao deletar o atributo de instância "olhos" do objeto "luciano", ele passará a retornar o
     #                    valor de "olhos" referente ao atributo de classe (o que na atribuição dinâmica retornaria
     #                    um erro, se somente atribuído dinamicamente ou por instanciamento)
-    Pessoa.olhos = 3  # se não fosse deletado o atributo de instância "olhos" do objeto "luciano", o valor a ser
+    # Pessoa.olhos = 3  # se não fosse deletado o atributo de instância "olhos" do objeto "luciano", o valor a ser
     #                   retornado permaneceria sendo 1. Como foi deletado, todos os objetos do tipo Pessoa, agora,
     #                   retornam o valor 3 para o atributo "olhos", respectiva à classe
     print(luciano.__dict__)
@@ -59,4 +77,12 @@ if __name__ == '__main__':
 
     print(Pessoa.metodo_estatico(), luciano.metodo_estatico())
     print(Pessoa.metodo_de_classe(), luciano.metodo_de_classe())
+    pessoa = Pessoa('Anonimo')
+    print(isinstance(pessoa, Pessoa))
+    print(isinstance(pessoa, Homem))
+    print(isinstance(tomas, Pessoa))
+    print(isinstance(tomas, Homem))
+    print(tomas.olhos)
+    print(renzo.cumprimentar())
+    print(tomas.cumprimentar())
 
