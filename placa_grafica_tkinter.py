@@ -85,13 +85,9 @@ def animar(tela, camada_de_atores, fase, passo=0.01, delta_t=0.04):
     def _ouvir_comandos_lancamento(evento):
         nonlocal angulo
         if evento.keysym == 'Up':
-            angulo += 1
-            if angulo > 360:
-                angulo = 1
+            angulo = (angulo + 1) % 360
         elif evento.keysym == 'Down':
-            angulo -= 1
-            if angulo < 0:
-                angulo = 359
+            angulo = (angulo - 1) % 360
         elif evento.keysym == 'Return' or evento.keysym == 'space':
             fase.lancar(angulo, tempo)
 
@@ -144,7 +140,7 @@ def rodar_fase(fase):
 if __name__ == '__main__':
     fase = Fase(intervalo_de_colisao=32)
     passaros = [PassaroVermelho(30, 30), PassaroAmarelo(30, 30), PassaroAmarelo(30, 30)]
-    porcos = [Porco(750, 1), Porco(700, 1)]
+    porcos = [Porco(750, 1), Porco(700, 1), Porco(680, 1)]
     obstaculos = [Obstaculo(310, 100)]
 
     fase.adicionar_obstaculo(*obstaculos)
