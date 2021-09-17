@@ -15,7 +15,7 @@ from atores import Ator, DESTRUIDO, ATIVO, Obstaculo, Porco, PassaroAmarelo, Pas
 
 class AtorTestes(TestCase):
     def teste_valores_padrao(self):
-        'Testa valores iniciais padrão de um Ator'
+        """Testa valores iniciais padrão de um Ator"""
         ator = Ator()
         self.assertEqual(0, ator.x)
         self.assertEqual(0, ator.y)
@@ -23,7 +23,7 @@ class AtorTestes(TestCase):
         self.assertEqual('A', ator.caracter())
 
     def teste_valores_passados_por_parametro(self):
-        'Testa se valores passados no inicializador são armazenados no objeto'
+        """Testa se valores passados no inicializador são armazenados no objeto"""
         ator = Ator(1, 2)
         self.assertEqual(1, ator.x)
         self.assertEqual(2, ator.y)
@@ -31,7 +31,7 @@ class AtorTestes(TestCase):
         self.assertEqual('A', ator.caracter())
 
     def teste_ator_posicao(self):
-        'Teste que verifica que o ator comum não deve se mover independente do tempo do jogo'
+        """Teste que verifica que o ator comum não deve se mover independente do tempo do jogo"""
         ator = Ator()
         x, y = ator.calcular_posicao(0)
         self.assertEqual(0, x)
@@ -127,7 +127,7 @@ class AtorTestes(TestCase):
     def assert_nao_colisao(self, ator, ator2):
         """
         Se certifica que não colisão entre dois atores
-        Atenção: Esse não é método de teste porque nao se inicia com prefixo "text".
+        Atenção: Esse não é método de teste porque nao se inicia com prefixo "test".
         Ele apenas encapsula a lógica de não colisão entre dois atores.
         So seja, eles deve manter seus respectivos status mesmo depois da chamada do metodo colidir
         """
